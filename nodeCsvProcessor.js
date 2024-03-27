@@ -5,17 +5,15 @@ fs.readFile("demo.csv", "utf8", (err, data) => {
     console.error("Error reading the file:", err);
     return;
   }
-
   const lines = data.trim().split("\n");
 
-  const output = setTimeout(() => {
-   
     lines.forEach((line, index) => {
       if (index % 2 == 1) {
         const fileName = `output_${index}.csv`;
         const content = line.trim();
 
-
+        const primaryOutput = setTimeout(() => {
+          
           fs.writeFile(fileName, content, (err) => {
             if (err) {
               console.error(`Error writing ${fileName}:`, err);
@@ -23,9 +21,10 @@ fs.readFile("demo.csv", "utf8", (err, data) => {
             }
             console.log(`${fileName} created successfully.`);
           });
+
         
-        
+        },index* 2000);
+       
       }
     }, 2000);
   });
-});
